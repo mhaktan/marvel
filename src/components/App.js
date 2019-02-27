@@ -23,8 +23,9 @@ class App extends Component {
         this.GetInitialChararcters();
     };
 
-    handleCharacterSelect = () => {
-        console.log('karakter seçimi başarılı');
+    handleCharacterSelect = character => {
+        console.log(character);
+        this.setState({ selectedCaharacter: character })
     }
     GetInitialChararcters() {
         $.getJSON(`${API_URL}/characters?${auth}&limit=5`, result => {
@@ -33,12 +34,12 @@ class App extends Component {
         });
     }
     render() {
+        if (!this.state.characters) return <h1>Lütfen bekleyiniz...</h1>
         return (
-
             <div className="container">
                 <SearchBar />
                 <CharacterList characters={this.state.characters} onCharacterSelect={this.handleCharacterSelect} />
-                <Details />
+                <Details character={this.state.selectedCaharacter || this.state.characters[0]} />
             </div>
 
         )

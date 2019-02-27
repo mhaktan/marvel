@@ -8,7 +8,7 @@ const CharacterList = props => {
     return (
         <div className="col-md-4">
             {_.map(props.characters, character => (
-                <CharacterListItem key={character.id} character={character} onCharacterSelect={this.handleCharacterSelect} />
+                <CharacterListItem key={character.id} character={character} onCharacterSelect={props.onCharacterSelect} />
             ))}
         </div>
 

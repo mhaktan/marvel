@@ -3,7 +3,7 @@ import React from 'react';
 const CharacterListItem = props => {
     const { character } = props;
     return (
-        <div className="list-item">
+        <div className="list-item" onClick={() => props.onCharacterSelect(character)}>
             <div className="row">
                 <div className="col-md-4">
                     <img src={`${character.thumbnail.path}/portrait_medium.${character.thumbnail.extension}`} alt={character.name}></img>
