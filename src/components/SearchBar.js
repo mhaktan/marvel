@@ -3,16 +3,34 @@ import React, { Component } from 'react';
 class SearchBar extends Component {
     constructor(props) {
         super(props);
+        this.state = { term: '' };
+    }
+
+    onInputChange(term) {
+        this.setState({ term });
+    }
+    handleKeyPress = event => {
+        if (event.key === 'Enter') {
+            this.props.onSearch(this.state.term);
+        }
     }
 
     render() {
         return (
-            <div className="search-bar">
-                <div className="col-md-6 col-md-offset-3">
+            <div className="row">
+                <div className="col-md-6 col-md-offset-3 search-bar">
                     <div className="input-group">
-                        <input className="form-control input-lg" />
+                        <input
+                            className="form-control input-lg"
+                            value={this.state.term}
+                            onChange={event => this.onInputChange(event.target.value)}
+                            onKeyPress={this.handleKeyPress}
+                        />
                         <span className="input-group-btn">
-                            <button className="btn btn-info input-lg">
+                            <button
+                                className="btn btn-info input-lg"
+                                onClick={() => this.props.onSearch(this.state.term)}
+                            >
                                 <i className="glyphicon glyphicon-search" />
                             </button>
                         </span>
@@ -22,4 +40,5 @@ class SearchBar extends Component {
         );
     }
 }
+
 export default SearchBar;

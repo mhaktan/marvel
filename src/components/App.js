@@ -17,6 +17,7 @@ class App extends Component {
             characters: null,
             selectedCaharacter: null,
         };
+        this.CharacterSearch = this.CharacterSearch.bind(this);
     }
 
     componentDidMount = () => {
@@ -33,11 +34,17 @@ class App extends Component {
             this.setState({ characters });
         });
     }
+    CharacterSearch(term) {
+        $.getJSON(`${API_URL}/characters?${auth}&limit=5&nameStartsWith=${term}`, result => {
+            const characters = result.data.results
+            this.setState({ characters });
+        });
+    }
     render() {
         if (!this.state.characters) return <h1>Lütfen bekleyiniz...</h1>
         return (
             <div className="container">
-                <SearchBar />
+                <SearchBar onSearch={this.CharacterSearch} />
                 <CharacterList characters={this.state.characters} onCharacterSelect={this.handleCharacterSelect} />
                 <Details character={this.state.selectedCaharacter || this.state.characters[0]} />
             </div>
